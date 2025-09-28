@@ -9,8 +9,10 @@ import {
   Title1,
   Body1,
   Switch,
+  Link,
   makeStyles
 } from '@fluentui/react-components'
+
 import './App.css'
 
 const useStyles = makeStyles({
@@ -91,13 +93,7 @@ function App() {
       url: "https://x.com/ntkrnl32",
       description: "My latest activities",
       icon: "👀"
-    },
-    {
-      title: "Contact",
-      url: "mailto:nt@krnl32.win",
-      description: "Just email me :)",
-      icon: "✉️"
-    },
+    }
   ];
 
   // 切换主题
@@ -138,8 +134,25 @@ function App() {
           </Card>
         ))}
 
+        <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+          <Button 
+            onClick={() => window.open('https://a.krnl32.win/key', '_blank')}
+          >
+            Public Key
+          </Button>
+          <Button 
+            onClick={() => window.open('https://siiway.top', '_blank')}
+          >
+            SiiWay Team
+          </Button>
+          <Button 
+            onClick={() => window.open('mailto:nt@krnl32.win', '_blank')}
+          >
+            Email
+          </Button>
+        </div>
         <Text className={styles.footer}>
-          © {new Date().getFullYear()} Copyright (c) 2025 NtKrnl32 | Built with React and Fluent UI
+          Copyright (c) {new Date().getFullYear()} NtKrnl32 | Built with React and Fluent UI
         </Text>
       </div>
     </FluentProvider>
