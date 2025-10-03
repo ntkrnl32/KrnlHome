@@ -68,6 +68,35 @@ function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const styles = useStyles();
   
+  // Detect whether the user is in Mainland China. This is a best-effort client-side
+  // heuristic: prefer Intl.Locale region when available, fall back to language
+  // and timezone checks.
+  function isMainlandChina() {
+    try {
+      if (typeof Intl !== 'undefined' && Intl.Locale) {
+        const loc = new Intl.Locale(navigator.language || navigator.userLanguage || 'en');
+        if (loc.region && loc.region.toUpperCase() === 'CN') return true;
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    const lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (lang === 'zh-cn') return true;
+
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      const mainlandTZs = ['Asia/Shanghai', 'Asia/Chongqing', 'Asia/Harbin', 'Asia/Urumqi'];
+      if (mainlandTZs.includes(tz)) return true;
+    } catch (e) {
+      // ignore
+    }
+
+    return false;
+  }
+
+  const avatarUrl = isMainlandChina() ? 'https://a.krnl32.win/avatar/gc' : 'https://a.krnl32.win/avatar';
+  
   // 示例链接数据
   const links = [
     {
@@ -113,7 +142,7 @@ function App() {
       
       <div className={styles.container}>
         <div className={styles.header}>
-          <img src="https://a.krnl32.win/avatar/gc" alt="Avatar" className={styles.avatar} />
+          <img src={avatarUrl} alt="Avatar" className={styles.avatar} />
           <Title1>NtKrnl32's Homepage</Title1>
           <Body1>My public stuff...</Body1>
         </div>
