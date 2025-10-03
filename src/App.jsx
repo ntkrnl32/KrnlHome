@@ -136,7 +136,7 @@ function App() {
 
         <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '10px' }}>
           <Button 
-            onClick={() => window.open('https://a.krnl32.win/key', '_blank')}
+            onClick={() => window.open('https://keys.openpgp.org/search?q=9151B7DEE39E25E4D3C5162309EA0AAB91738E49', '_blank')}
           >
             Public Key
           </Button>
