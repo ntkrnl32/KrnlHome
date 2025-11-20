@@ -2,35 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link id="site-favicon" rel="icon" type="image/svg+xml" href="https://a.krnl32.win/avatar/gc" />
-    <script>
-      // Runtime favicon swap to prefer /avatar when not in Mainland China.
-      (function() {
-        function isMainlandChina() {
-          try {
-            if (typeof Intl !== 'undefined' && Intl.Locale) {
-              var loc = new Intl.Locale(navigator.language || navigator.userLanguage || 'en');
-              if (loc.region && loc.region.toUpperCase() === 'CN') return true;
-            }
-          } catch (e) {}
-          var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-          if (lang === 'zh-cn') return true;
-          try {
-            var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-            var mainlandTZs = ['Asia/Shanghai', 'Asia/Chongqing', 'Asia/Harbin', 'Asia/Urumqi'];
-            if (mainlandTZs.indexOf(tz) !== -1) return true;
-          } catch (e) {}
-          return false;
-        }
-
-        try {
-          var link = document.getElementById('site-favicon');
-          if (link) {
-            link.href = isMainlandChina() ? 'https://a.krnl32.win/avatar/gc' : 'https://a.krnl32.win/avatar';
-          }
-        } catch (e) {}
-      })();
-    </script>
+    <link id="site-favicon" rel="icon" type="image/svg+xml" href="https://assets-eo.krnl32.win/avatar.png" />
     <meta name="description" content="My personal website and blog" />
     <meta name="keywords" content="KrnlHome, NtKrnl32, Krnl32, NT, NTKRNL32" />
     <meta name="author" content="NtKrnl32" />

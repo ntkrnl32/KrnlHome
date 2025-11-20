@@ -20,17 +20,19 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    maxWidth: '600px',
+    width: '100%',
+    minWidth: '50vw',
     margin: '0 auto',
     padding: '2rem',
     gap: '1.5rem',
+    flexGrow: 1
   },
   header: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '0.5rem',
-    marginBottom: '1rem',
+    marginBottom: '3rem',
   },
   themeSwitch: {
     display: 'flex',
@@ -41,7 +43,8 @@ const useStyles = makeStyles({
     right: '1rem',
   },
   linkCard: {
-    width: '100%',
+    width: '30%',
+    minWidth: '350px',
     cursor: 'pointer',
     transition: 'transform 0.2s ease',
     ':hover': {
@@ -51,6 +54,7 @@ const useStyles = makeStyles({
   linkContent: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '1rem',
     padding: '0.5rem',
   },
@@ -58,7 +62,7 @@ const useStyles = makeStyles({
     flexShrink: 0
   },
   footer: {
-    marginTop: '2rem',
+    paddingTop: '1rem',
     textAlign: 'center',
     opacity: 0.7,
   }
@@ -67,37 +71,9 @@ const useStyles = makeStyles({
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const styles = useStyles();
+
+  const avatarUrl = "https://assets-eo.krnl32.win/avatar.png";
   
-  // Detect whether the user is in Mainland China. This is a best-effort client-side
-  // heuristic: prefer Intl.Locale region when available, fall back to language
-  // and timezone checks.
-  function isMainlandChina() {
-    try {
-      if (typeof Intl !== 'undefined' && Intl.Locale) {
-        const loc = new Intl.Locale(navigator.language || navigator.userLanguage || 'en');
-        if (loc.region && loc.region.toUpperCase() === 'CN') return true;
-      }
-    } catch (e) {
-      // ignore
-    }
-
-    const lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (lang === 'zh-cn') return true;
-
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-      const mainlandTZs = ['Asia/Shanghai', 'Asia/Chongqing', 'Asia/Harbin', 'Asia/Urumqi'];
-      if (mainlandTZs.includes(tz)) return true;
-    } catch (e) {
-      // ignore
-    }
-
-    return false;
-  }
-
-  const avatarUrl = isMainlandChina() ? 'https://a.krnl32.win/avatar/gc' : 'https://a.krnl32.win/avatar';
-  
-  // 示例链接数据
   const links = [
     {
       title: "Homepage",
@@ -125,13 +101,15 @@ function App() {
     }
   ];
 
-  // 切换主题
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
 
   return (
-    <FluentProvider theme={isDarkTheme ? webDarkTheme : webLightTheme}>
+    <FluentProvider 
+      theme={isDarkTheme ? webDarkTheme : webLightTheme}
+      style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}
+    >
       <div className={styles.themeSwitch}>
         <Switch 
           checked={isDarkTheme}
@@ -163,14 +141,14 @@ function App() {
           </Card>
         ))}
 
-        <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+        <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '10px', marginTop: 'auto', paddingTop: '2rem' }}>
           <Button 
             onClick={() => window.open('https://keys.openpgp.org/search?q=9151B7DEE39E25E4D3C5162309EA0AAB91738E49', '_blank')}
           >
             Public Key
           </Button>
           <Button 
-            onClick={() => window.open('https://siiway.top', '_blank')}
+            onClick={() => window.open('https://siiway.org', '_blank')}
           >
             SiiWay Team
           </Button>
